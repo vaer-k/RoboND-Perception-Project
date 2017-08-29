@@ -29,7 +29,15 @@ In order to distinguish each object from each other object, we'll need to perfor
 ![dbscan](http://imgur.com/EOAzSHE.png)
 
 ### Complete Exercise 3 Steps. Features extracted and SVM trained. Object recognition implemented.
+Next, we want to train a support vector machine model to learn the color and shape representation of each object. The colors are collect directly from the image, and the surface normals are computed from the depth sensor recordings to describe the shapes in the scene. The surface normal computations were provided by the given assignment materials.
 
+The pattern of colors and surface normals of each object can be bundled into feaetures as histograms that serve as a kind of fingerprint for each object's appearance. We train the SVM model by providing example images of each object. After binning the values of each point in the image into histograms and concatenating the histogram values together, we feed the resultant feature vector into the training algorithm. The SVM learns boundaries separating various object classes from each other in feature space, and after training can be used to classify unseen images. 
+
+The following confusion matrices describe the results of the SVM I trained for this dataset:
+![confusion-matrix](http://imgur.com/CQK4qiT.png)
+![normalized-confusion-matrix](http://imgur.com/FVkhzpG.png)
+
+The clean diagonals across the table indicate successful classifications. 
 
 # Required Steps for a Passing Submission:
 1. Extract features and train an SVM model on new objects (see `pick_list_*.yaml` in `/pr2_robot/config/` for the list of models you'll be trying to identify). 
