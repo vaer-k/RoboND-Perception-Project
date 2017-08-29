@@ -1,7 +1,26 @@
 ## Project: Perception Pick & Place
-### Writeup Template: You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
 
 ---
+
+## CRITERIA
+### Complete Exercise 1 steps. Pipeline for filtering and RANSAC plane fitting implemented.
+For this section of the project, I began by downsampling voxels in the image to reduce the resolution of the image in order to facilitate a more tractable computational problem. This works by choosing a lower resolution space and using neighboring points to grid vertices to estimate a value for each voxel. Next, I applied a passthrough filter to extract only the region of the image where the table surface and objects were located for further analysis. 
+
+At this point, I chose to diverge slightly from the basic instructions for the project to apply noise filtering to the image. Dust, poor lighting conditions, and camera lens flaws, among other things, can provide sources of error in the resultant image. We can improve the quality of the image by removing outliers. We do this by filtering out points that is more distant from its neighbors than the global average. 
+
+After this initial filtering, I applied RANSAC plane segmentation to separate the objects on the table from the table itself. RANSAC filtering works by choosing a model of the target object, in this case a plane, and determining the minimal subset of points needed to represent it, in this case three points in cartesian coordinates. Next, a random sample of points are selected from the scene are selected and each point in the scene is tested to validate whether the point fits the model. This procedure is performed iteratively and finally the model parameters with the most consensus among points in the scene is selected. All of the points that coincide with the model are then considered to belong to the model, which in our case represents the table that the objects are sitting on. 
+
+The following image is an example the resulting selection after all of the processing steps so far:
+![ransac](http://imgur.com/XDBKibd.png)
+
+And by selecting all of the points in the scene that are outliers to the final RANSAC-fitted model, we end up with the objects themselves, since there are all that is left in the scene after preprocessing. This will turn our image from this:
+
+![raw](http://imgur.com/B019BL6.png)
+
+into this:
+
+![table-removed](http://imgur.com/NR1qTCC.png)
+
 
 
 # Required Steps for a Passing Submission:
