@@ -21,6 +21,14 @@ into this:
 
 ![table-removed](http://imgur.com/NR1qTCC.png)
 
+Right now, all of the objects have been selected from the scene, but they have yet to be distinguished from each other. We need to perform clustering to separate the pieces of the image to determine the set of points that represent each object.
+
+### Complete Exercise 2 steps: Pipeline including clustering for segmentation implemented.
+In order to distinguish each object from each other object, we'll need to perform some clustering. If we knew how many objects to expect in the scene we could use K-means clustering, but because this isn't known in advance for our application, we'll need to use a method that can detect a variable number of clusters automatically. The algorithm of choice here is called DBSCAN, and it works by exploring each point in the data and measuring its euclidean distance to its nearest neighbors. By tuning a couple thresholds, one to delineate the maximum distance required to be considered a neighboring point, and another threshold to delineate those core, defining points in a cluster, we are finally left with labeled points distinguishing member points of each object from those of another object. 
+
+![dbscan](http://imgur.com/EOAzSHE.png)
+
+### Complete Exercise 3 Steps. Features extracted and SVM trained. Object recognition implemented.
 
 
 # Required Steps for a Passing Submission:
